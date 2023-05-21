@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+
+{%block title%}{{product.name}}{%end block%}
+
+{%block content%}
+
+<div>
+    {%with reviews = product.get_num_reviews rating = product.average_ratings%}
+</div>
+
+

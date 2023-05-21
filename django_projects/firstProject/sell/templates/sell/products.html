@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+
+{%load static%}
+
+{% block title%}Products{% endblock%}
+
+{% block content%}
+
+    <h1>Featured Products</h1>
+    <div style= "display:grid; grid-template-columns: 1fr 1fr 1fr; padding: 10px; background-color: lightgray; gap:10px" >
+    {% for product in products%}
+        <div style="background-color:{% cycle 'white' 'white' %}; border-radius: 8px; border: 2px solid gray; padding; box">
+            <h2>{{product.name}}</h2>
+            {% comment %} <h2>{{product.desc}}</h2>
+            <h2>{{product.price}}</h2> {% endcomment %}
+            <p>{{product.desc|truncatewords:50}}</p>
+            <p>{{product.price}}</p>
+            {%with reviews=product.get_num_reviews ratings=product.average_ratings%}
+            <h2>Ratings:{{ratings}}</h2>
+            <p>Review:{{ reviews}}</p>
+
+            {%endwith%}
+        </div>
+       
+
+    {%endfor%}
+    </div>
+    {% include './category.html' with categories=categories%}
+{% endblock%}
