@@ -6,11 +6,11 @@
     {% csrf_token %}
 
     <h2>Sell Easy</h2>
-    {%if err%%}
+    {%if err%}
     <p>Email or Password not correct</p>
     <p>{{err}}</p>
     {%endif%}
     {{form}}
     <input type="submit" value = "Log in"/>
 </form>
-{% end block%}
+{% endblock%}

@@ -1,5 +1,5 @@
 from django import forms
-from .forms import Profile
+# from .forms import Profile
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label = "Email")

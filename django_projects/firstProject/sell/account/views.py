@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import LoginForm
 from django.contrib.auth import login, authenticate
 from django.core.exceptions import ValidationError
+from .models import Profile
+from sell.models import Store
 # # from.forms import Loginform
 
 # from django.core import validators
@@ -16,21 +18,21 @@ from django.core.exceptions import ValidationError
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
-
         try:
 
             if form.is_valid():
                 email=form.cleaned_data['email']
                 password=form.cleaned_data['password']
                 user = authenticate(email = email, password = password)
-                print("User", user.first_name)
+                # print("User", user.first_name)
                 if user is not None:
                     request.session['user_id'] = str(user.id)
-                    # login(request, user)
-                    print("id", str(user.id), user.first_name, user.last_name)
-                return HttpResponse(f"Welcome{user.firstname}")
-                # raise ValidationError('Email or Password not correct')
-                print("Credentials", email, password)
+                    return redirect('dashboard')
+                #     # login(request, user)
+                #     print("id", str(user.id), user.first_name, user.last_name)
+                # return HttpResponse(f"Welcome{user.firstname}")
+                # # raise ValidationError('Email or Password not correct')
+                # print("Credentials", email, password)
 
         except ValidationError as err:
             return render(request,'account/login.html', {'form':form, 'error':err})
@@ -43,4 +45,8 @@ def signup(request):
     return HttpResponse('User Signed in')
 
 def dashboard(request):
-    return HttpResponse('This is your dashboard, welcome')
+    user_id = request.session['user_id']
+    user = Profile.objects.get(id=user_id)
+    # return HttpResponse('This is your dashboard, welcome')
+    store=Store.objects.get(owner=user)
+    return render(request, 'account/dashboard.html', {'store':store})
