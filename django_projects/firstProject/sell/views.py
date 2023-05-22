@@ -34,7 +34,9 @@ def products(request):
     return render(request, 'sell/products.html', context) #HttpResponse(webpage)
 
 def product(request, id):
-    product = Products.objects.filter(id=id).values()
+    product = Products.objects.get(id=id) #.values()
+    related_products = Products.objects.filter(category=product.Category).exclude(id=product.id)
+    return render(request, 'sell/detail.html', {'product': product, 'related_products':related_products})
 
     # webPage = web_page(product)
     # return HttpResponse(webPage)
