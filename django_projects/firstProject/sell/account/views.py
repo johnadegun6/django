@@ -5,7 +5,7 @@ from django.contrib.auth import login, authenticate
 from django.core.exceptions import ValidationError
 from .models import Profile
 from sell.models import Store
-# # from.forms import Loginform
+from .forms import SignUpForm
 
 # from django.core import validators
 # from .models import Profile
@@ -42,7 +42,21 @@ def login(request):
     return render(request,'account/login.html', {'form':form})
 
 def signup(request): 
-    return HttpResponse('User Signed in')
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            address = form.cleaned_data['address']
+            phone_number = form.cleaned_data['phone_number']
+            user = Profile(username=username, email=email, first_name=first_name, last_name=last_name, address=address, phone_number=phone_number)
+            form.save()
+            return redirect('login')
+    form = SignUpForm()
+    # return HttpResponse('User Signed in')
+    return render(request, 'account/signup.html',{'form':form})
 
 def dashboard(request):
     user_id = request.session['user_id']
