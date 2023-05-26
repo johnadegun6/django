@@ -25,6 +25,22 @@ def show_home_page(request):
 #     return page
 
 
+def home(request):
+    products = Products.objects.all()
+    best_selling_products= products  #.filter('-price')
+    products = products[:8]
+    categories=Category.objects.all()[:4]
+    stores = Store.objects.all()[:4]
+
+    context ={
+        'products': products,
+        'categories' : categories,
+        'stores' : stores,
+        'best_selling_products': best_selling_products
+    }
+
+    return render(request, 'sell/home.html', context)
+
 def products(request):
     products = Products.objects.all() #.values()
     categories = Category.objects.all()

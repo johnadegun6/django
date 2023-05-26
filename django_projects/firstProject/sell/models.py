@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib import admin
 from django.contrib.auth.models import User
-from django.db.models import Q, Max, Min
+from django.db.models import Q, Max, Min, QuerySet
 from django.core.validators import MaxValueValidator, MinValueValidator
+from sell.account.models import Profile
 
 
 
@@ -17,7 +19,13 @@ class Store(models.Model):
     tagline = models.CharField(max_length=200)
     name = models.CharField(max_length=100)
 
-
+    def __str__(self) -> str:
+        return self.name
+    
+    @admin.display(description= "show total products")
+    def total_products(self):
+        total = self.products.count()
+        return total
 
 class Category(models.Model):
     #owner

@@ -45,13 +45,14 @@ def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            address = form.cleaned_data['address']
-            phone_number = form.cleaned_data['phone_number']
-            user = Profile(username=username, email=email, first_name=first_name, last_name=last_name, address=address, phone_number=phone_number)
+            # username = form.cleaned_data['username']
+            # email = form.cleaned_data['email']
+            # first_name = form.cleaned_data['first_name']
+            # last_name = form.cleaned_data['last_name']
+            # address = form.cleaned_data['address']
+            # phone_number = form.cleaned_data['phone_number']
+            # user = Profile(username=username, email=email, first_name=first_name, last_name=last_name, address=address, phone_number=phone_number)
+            # user.save()
             form.save()
             return redirect('login')
     form = SignUpForm()

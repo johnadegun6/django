@@ -7,6 +7,8 @@ from .import views
 
 from .views import show_home_page
 urlpatterns = [
+    # SELL APP VIEWS
+    path('', views.home, name = 'home'),
     path('products', views.products, name = 'products'),
     path('products/<int:id>', views.product, name = 'products'),
     path('stores', views.stores, name = 'stores'),
@@ -22,6 +24,9 @@ urlpatterns = [
         path('signup', account_views.signup, name="signup"),
         
     ])),
+
+
+        # DASHBOARD VIEWS
 
     path('dashboard', account_views.dashboard, name="dashboard")
 ]

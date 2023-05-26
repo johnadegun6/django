@@ -2,11 +2,19 @@
 
 {% block content %}
 
-<div class = "container">
-    <form action = "/account/signup" method="post">
+<div class = "container" style"display:flex; justify-content:center; align-items:center ">
+    <form action = "/account/signup" method="post" style= "border:2px solid grey; border-radius:8px; padding: 10px">
         {% csrf_token %}
         <h2> Sign Up </h2>
         {{form.as_p}}
+        {%for field in form%}
+            <div class = "fieldWrapper">
+                {{field.label_tag}}{{field}}
+                {% comment %} <p>{{field.label}}</p>
+                <p>{{field}}</p> {% endcomment %}
+                {% comment %} {{form.as_p}}{{field.label_tag}}{{field}} {% endcomment %}
+            </div>
+        {% endfor %}
         <input type = "submit" value= "Sign Up"/>
     </form>
 </div>
