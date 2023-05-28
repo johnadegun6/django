@@ -55,6 +55,9 @@ class RequestConsultation(models.Model):
 
     def __str__(self) -> str:
         return f"{self.patient}-{self.status}"
+    
+    class Meta:
+        permissions = (('can_consult', 'Consult Doctor'), ('can deliver', 'can have drugs delivered'))
 
 
 class Appointment(models.Model):
